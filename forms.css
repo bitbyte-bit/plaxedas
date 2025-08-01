@@ -1,0 +1,82 @@
+.sign-overlay{
+    position:fixed;
+    top:0;
+    bottom:0;
+    right: 0;
+    left:0;
+    background-color: rgba(17, 5, 85, 0.918);
+}
+.sign-modal{
+    margin:5px 5px 0 5px;
+    border-bottom: 0;
+    border:2px solid gray;
+    background-image:linear-gradient(45deg,rgba(177, 10, 177, 0.719),rgb(6, 6, 77)) ;
+    position: fixed;
+    bottom: 0;
+    border-radius:20px 20px 0 0;
+    box-shadow:-5px 5px 24px black;
+    text-align: center;
+    .legend{
+        border:4px solid gray;
+        width:max-content;
+        border-radius:10px;
+        box-shadow:0 10px 40px purple;
+        cursor: pointer;
+    }
+}
+.inputs{
+    padding:10px;
+    width:300px;
+    background-color:rgb(7, 3, 34);
+    border:0;
+    border-radius:5px;
+    margin:5px;  
+    text-transform: capitalize;  
+    color:green;
+}
+.inputs::placeholder{
+    text-transform: capitalize;
+    
+}
+.pop-headings{
+    text-transform: uppercase;
+    font-weight: bold;
+    border-bottom: 0;
+    font-size:34px;
+    color:transparent;
+    background-image:linear-gradient(45deg,yellow,purple,blue);
+    background-repeat: no-repeat;
+    background-clip: text;
+    -webkit-background-clip: text;
+}
+.account{
+    border-bottom: 0;
+    position:fixed;
+    right:0;
+    left:0;
+    bottom: 0;
+    background-image: linear-gradient(45deg,rgb(90, 6, 90),rgb(16, 3, 73),rgb(6, 6, 105));
+    border-radius: 20px 20px 0 0;
+    margin:5px;
+    padding-top: 20px;
+    margin-bottom: 0;
+    .sign-up{
+        font-weight: bold;
+        font-size: 24px;
+        text-transform: uppercase;
+        border-radius:10px;
+    }
+    .paragraphs{
+        text-transform:capitalize;
+    }
+    .paragraphs-spaced{
+        display:flex;
+        align-items: center;
+        justify-content: space-between;
+
+    }
+    #close{
+        cursor: pointer;
+    }
+}
+
