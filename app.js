@@ -87,6 +87,24 @@ menu.addEventListener('click', () => {
             title.className='pop-headings2';
             title.innerText='about us';
 
+            const aboutContent =document.createElement('p');
+            aboutContent.className='about-content';
+            aboutContent.innerHTML=`Orion,we are a growing service provider company
+            based in Uganda,kampala.<br>
+            We are offering variety of goods and services to the community in uganda and neighbouring countries.
+            minus being pocket friendly in our pricing,some of the services we provide to our clients are free of charge.<br><br>
+            Such as entertainment;<br>
+            <li class='lines'>movie download</li>
+            <li class='lines'>music download and live straming</li>
+            <li class='lines'>chating with frinds</li><br>
+            Are all provided at a free cost<br><br><br><br>
+
+            You can read find any service you want on this sites homepage.
+            or visit our social mdia handles for more;
+            <br><br><strong>find us;</strong><br>            
+            `;
+
+
             const quit=document.createElement('button');
             quit.className='save-changes';
             quit.innerText='exit';
@@ -95,6 +113,8 @@ menu.addEventListener('click', () => {
             })
 
             about.appendChild(title)
+            about.appendChild(aboutContent)
+            
             about.appendChild(quit)
             document.body.appendChild(about)
         }if(list === 'services'){
@@ -127,6 +147,11 @@ menu.addEventListener('click', () => {
             const title=document.createElement('p');
             title.className='pop-headings';
             title.innerText='my profile';
+
+            const aboutContent = document.createElement('fieldset');
+            aboutContent.className=''
+            const aboutLegnd = document.createElement('legend');
+
 
             const quit=document.createElement('button');
             quit.className='quit';
@@ -307,13 +332,6 @@ head.appendChild(menu)
 
 
 
-//app updator
-const updates=document.createElement('section');
-updates.className='updates';
-updates.innerText='updates';
-app.appendChild(updates)
-
-
 
 const buttonCase=document.createElement('div');
 buttonCase.className='button-case';
@@ -418,21 +436,21 @@ app.appendChild(note)
 	const newItemBox=document.createElement('div');
 	newItemBox.className='new-items';
 const itemsList = [
-	{ name: 'robin hoods', price: 'Ugx1000', img:'act4.jpg' },
-	{ name: 'monster run', price: 'Ugx1800', img:'act3.jpg' },
-	{ name: 'die alone', price: 'Ugx1100', img:'act2.jpg' },
-	{ name: 'dark forest', price: 'Ugx900', img:'act1.jpg' },
-	{ name: 'New Balance 574', price: 'Ugx1000', img:'shoe.jpg' },
-	{ name: 'Converse Chuck Taylor', price: 'Ugx650', img:'shoe.jpg' },
-	{ name: 'Vans Old Skool', price: 'Ugx2000', img:'shoe.jpg' },
-	{ name: 'Asics Gel-Kayano', price: 'Ugx1600', img:'shoe.jpg' },
-	{ name: 'Under Armour HOVR', price: 'Ugx1400', img:'shoe.jpg' },
-	{ name: 'Hoka One One Bondi', price: 'Ugx1500', img:'shoe.jpg' },
-	{ name: 'Saucony Triumph', price: 'Ugx1300', img:'shoe.jpg' },
-	{ name: 'Brooks Ghost', price: 'Ugx1200', img:'shoe.jpg' },
-	{ name: 'Mizuno Wave Rider', price: 'Ugx1200', img:'shoe.jpg' },
-	{ name: 'Fila Disruptor', price: 'Ugx800', img:'shoe.jpg' },
-	{ name: 'K-Swiss Classic', price: 'Ugx750', img:'shoe.jpg' }
+	{ name: 'robin hoods', price: 'Ugx1000', video:'', img:'act4.jpg' },
+	{ name: 'monster run', price: 'Ugx1800', video:'', img:'act3.jpg' },
+	{ name: 'die alone', price: 'Ugx1100', video:'The gardener ICE P.mp4', img:'act2.jpg' },
+	{ name: 'dark forest', price: 'Ugx900', video:'',img:'act1.jpg' },
+	{ name: 'New Balance 574', price: 'Ugx1000', video:'', img:'shoe.jpg' },
+	{ name: 'Converse Chuck Taylor', price: 'Ugx650', video:'', img:'shoe.jpg' },
+	{ name: 'Vans Old Skool', price: 'Ugx2000', video:'', img:'shoe.jpg' },
+	{ name: 'Asics Gel-Kayano', price: 'Ugx1600', video:'', img:'shoe.jpg' },
+	{ name: 'Under Armour HOVR', price: 'Ugx1400', video:'', img:'shoe.jpg' },
+	{ name: 'Hoka One One Bondi', price: 'Ugx1500', video:'', img:'shoe.jpg' },
+	{ name: 'Saucony Triumph', price: 'Ugx1300', video:'', img:'shoe.jpg' },
+	{ name: 'Brooks Ghost', price: 'Ugx1200', video:'', img:'shoe.jpg' },
+	{ name: 'Mizuno Wave Rider', price: 'Ugx1200', video:'', img:'shoe.jpg' },
+	{ name: 'Fila Disruptor', price: 'Ugx800', video:'', img:'shoe.jpg' },
+	{ name: 'K-Swiss Classic', price: 'Ugx750', video:'', img:'shoe.jpg' }
 ];
 itemsList.forEach(item => {
 	const itemDiv = document.createElement('div');
@@ -475,13 +493,22 @@ itemsList.forEach(item => {
         ok.className='invisible-btn';
         ok.innerText='ok';
 
+        
+
         const cancel=document.createElement('button');
         cancel.className='invisible-btn';
         cancel.innerText='cancel';
 
         if(confirm) {
             ok.addEventListener('click',() => {
-               
+               overlay.remove();
+
+               const link =document.createElement('a');
+               link.href = item.video;
+               link.download = item.name + '<>downloaded at ORION'+'<tell:+256744759181>';
+               document.body.appendChild(link);
+               link.click();
+               document.body.removeChild(link);
         });
     }
         if(confirm){
@@ -647,6 +674,12 @@ hotdealsList.forEach(hotDeal => {
 	const cartBtn=document.createElement('button');
 	cartBtn.className='cart-btn';
 	cartBtn.innerText='add to cart';
+
+    //cart addition btn event listener
+
+
+
+
     deal.appendChild(buyBtn)
     deal.appendChild(cartBtn)
 });
@@ -660,7 +693,7 @@ main.appendChild(hotDeals)
 const notify=document.createElement('section');
 notify.className='updates';
 notify.innerText='app notifications';
-notification.appendChild(notify)
+
 
 const homeBtn=document.createElement('span');
 homeBtn.className='material-icons';
