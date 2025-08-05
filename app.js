@@ -438,7 +438,7 @@ app.appendChild(note)
 const itemsList = [
 	{ name: 'robin hoods', price: 'Ugx1000', video:'', img:'act4.jpg' },
 	{ name: 'monster run', price: 'Ugx1800', video:'', img:'act3.jpg' },
-	{ name: 'die alone', price: 'Ugx1100', video:'The gardener ICE P.mp4', img:'act2.jpg' },
+	{ name: 'die alone', price: 'Ugx1100', video:'https://u.pcloud.link/publink/show?code=XZR7bW5Zf5xmaQk84E8gybfdgB4SjLyJRVl7', img:'act2.jpg' },
 	{ name: 'dark forest', price: 'Ugx900', video:'',img:'act1.jpg' },
 	{ name: 'New Balance 574', price: 'Ugx1000', video:'', img:'shoe.jpg' },
 	{ name: 'Converse Chuck Taylor', price: 'Ugx650', video:'', img:'shoe.jpg' },
@@ -901,3 +901,4 @@ profileBtn.addEventListener('click', () => {
 
     document.body.appendChild(profileBoard)
 });
+
