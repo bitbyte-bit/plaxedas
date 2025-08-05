@@ -125,9 +125,7 @@
 }
 .pop-headings2{
     width:100%;
-    margin:5px;
     padding: 10px;
-    border-radius:10px;
     background-image: linear-gradient(20deg,purple,blue,rgb(0, 217, 255));
     text-transform: uppercase;
     display: flex;
@@ -158,4 +156,7 @@
     height: 80px;
     border-radius:100%;
     border:1px solid grey;
+}
+.about-content{
+    text-align: left;
 }
