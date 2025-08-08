@@ -100,35 +100,7 @@
             console.warn('Cache API not supported in this browser.');
         }
 
-        async function postUserGeolocation() {
-            if ("geolocation" in navigator) {
-                navigator.geolocation.getCurrentPosition(
-                    async function(position) {
-                        const lat = position.coords.latitude;
-                        const lon = position.coords.longitude;
-                        try {
-                            await fetch('/dash.html', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify({ latitude: lat, longitude: lon })
-                            });
-                            console.log('Geolocation posted to dash.html');
-                        } catch (err) {
-                            console.error('Failed to post geolocation:', err);
-                        }
-                    },
-                    function(error) {
-                        console.error("Error getting location for posting:", error.message);
-                    }
-                );
-            } else {
-                console.error("Geolocation is not supported by this browser.");
-            }
-        }
-        postUserGeolocation();
-
+       
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('/service-worker.js')
@@ -149,25 +121,7 @@
             deferredPrompt = e;
         });
 
-        window.addEventListener('appinstalled', async () => {
-            let deviceDetails = `${navigator.platform} (${navigator.userAgent})`;
-            let place = "your location";
-            if ("geolocation" in navigator) {
-                try {
-                    const pos = await new Promise((resolve, reject) => {
-                        navigator.geolocation.getCurrentPosition(resolve, reject);
-                    });
-                    const lat = pos.coords.latitude;
-                    const lon = pos.coords.longitude;
-                    const resp = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`);
-                    if (resp.ok) {
-                        const data = await resp.json();
-                        place = data.display_name || place;
-                    }
-                } catch (e) {
-                    // Ignore geolocation errors
-                }
-            }
+        
             if ('Notification' in window && Notification.permission === 'granted' && navigator.serviceWorker) {
                 navigator.serviceWorker.ready.then(reg => {
                     reg.showNotification('Plaxedas Installed', {
@@ -177,43 +131,6 @@
                 });
             }
         });
-        window.addEventListener('load', () => {
-            if (window.matchMedia('(display-mode: standalone)').matches) return;
-            if ('BeforeInstallPromptEvent' in window) return; // Already handled below
-
-            let installPromptShown = false;
-            window.addEventListener('beforeinstallprompt', (e) => {
-                e.preventDefault();
-                if (installPromptShown) return;
-                installPromptShown = true;
-                const installBtn = document.createElement('button');
-                installBtn.textContent = 'Install this App';
-                installBtn.className = 'install-btn';
-                installBtn.style.position = 'fixed';
-                installBtn.style.bottom = '20px';
-                installBtn.style.right = '20px';
-                installBtn.style.zIndex = '1000';
-                document.body.appendChild(installBtn);
-
-                installBtn.addEventListener('click', async () => {
-                    installBtn.style.display = 'none';
-                    e.prompt();
-                    await e.userChoice;
-                });
-            });
-        });
-            installBtn.addEventListener('click', async () => {
-                installBtn.style.display = 'none';
-                deferredPrompt.prompt();
-                const { outcome } = await deferredPrompt.userChoice;
-                if (outcome === 'accepted') {
-                    console.log('User accepted the install prompt');
-                } else {
-                    console.log('User dismissed the install prompt');
-                }
-                deferredPrompt = null;
-            });
-        
 
 
 
@@ -323,3 +240,4 @@
     
 </body>
 </html>
+
