@@ -124,7 +124,28 @@
                 });
             }
         });
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                if (typeof deferredPrompt !== 'undefined' && deferredPrompt) {
+                    const installBtn = document.createElement('button');
+                    installBtn.textContent = 'Install plaxedas';
+                    installBtn.className = 'install-btn';
+                    installBtn.style.position = 'fixed';
+                    installBtn.style.bottom = '20px';
+                    installBtn.style.right = '20px';
+                    installBtn.style.zIndex = '1000';
+                    document.body.appendChild(installBtn);
 
+                    installBtn.addEventListener('click', async () => {
+                        installBtn.style.display = 'none';
+                        deferredPrompt.prompt();
+                        await deferredPrompt.userChoice;
+                        deferredPrompt = null;
+                    });
+                }
+            }, 10000);
+        });
+        
 
 
         if ('Notification' in window && navigator.serviceWorker) {
@@ -144,19 +165,6 @@
             console.warn('Notifications are not supported in this browser.');
         }
 
-        if (window.location.protocol === 'http:') {
-            console.warn('Running on HTTP. For full functionality, consider using HTTPS.');
-        } else {
-            console.log('Running on secure HTTPS protocol.');
-        }
-
-        if (window.location.protocol === 'https:') {
-            console.log('Secure connection established.');
-        } else {
-            console.warn('Insecure connection. Some features may not work properly.');
-        }
-
-        
         
 
     </script>
@@ -180,5 +188,6 @@
     
 </body>
 </html>
+
 
 
