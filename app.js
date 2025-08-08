@@ -127,6 +127,122 @@ menu.addEventListener('click', () => {
             title.className='pop-headings';
             title.innerText='our services';
 
+            const serviceBox = document.createElement('div');
+            serviceBox.className='service-box';
+
+            const serveList = [
+                {name:'internet setting'},
+                {name:'electronics repair'},
+                {name:'printing'},
+                {name:'photography'},
+                {name:'movie and music'}
+            ];
+            serveList.forEach(list => {
+                const serviceL =document.createElement('li');
+                serviceL.className='card';
+
+                const serviceName = document.createElement('p');
+                serviceName.className='service-name';
+                serviceName.innerText=list.name;
+
+                serviceL.appendChild(serviceName)
+
+                serviceBox.appendChild(serviceL)
+
+                serviceL.addEventListener('click',() => {
+                    if(list.name === 'internet setting'){
+                        const overlay=document.createElement('div');
+                        overlay.className='overlay';
+                        
+
+                        //add pop up
+                        const msgPop =document.createElement('div');
+                        msgPop.className='confirm2';
+
+                        const message = document.createElement('p');
+                        message.className='inputs2';
+                        message.placeholder='issue...';
+                        message.innerText='issue...';
+                        message.contentEditable=true;
+
+
+                        const sendBtn =document.createElement('button');
+                        sendBtn.textContent='send';
+                        sendBtn.className='buttons2';
+                        sendBtn.addEventListener('click', () => {
+                        const num = '+256744759181';
+                        const msg = message.innerText;
+                        const  url = `http://wa.me/${num}?text=${encodeURIComponent(msg)}`;
+                        if(message.innerText=== 'issue...'){
+                            msgPop.style.borderColor='red';
+                            message.innerText='fill in the internet issue to be solved!';
+                            message.style.color='red';
+                            setTimeout(() => {
+                                erase()
+                            }, 3000);function erase(){
+                                message.innerText='';
+                                message.addEventListener('input',() => {
+                                    message.style.color='white';
+                                });
+                            }
+                            
+                        }else{
+                            msgPop.style.borderColor ='green';
+                            setTimeout(() => {
+                                load()
+                            }, 1000);function load(){
+                                window.open(url ,'_blank');
+                            }
+                        }
+                        });
+                        msgPop.appendChild(message)
+                        msgPop.appendChild(sendBtn)
+                        overlay.appendChild(msgPop)
+                        serviceBox.appendChild(overlay)
+                    }if(list.name === 'electronics repair'){
+                        serviceL.addEventListener('click', () => {   
+                        const repairBoard =document.createElement('div');
+                        repairBoard.className='repair-board';
+                        
+
+
+
+                        serviceBox.appendChild(repairBoard)
+                        });
+                    }if(list.name === 'printing') {
+                        serviceL.addEventListener('click', () => {   
+                        const repairBoard =document.createElement('div');
+                        repairBoard.className='repair-board';
+                        
+
+
+
+                        serviceBox.appendChild(repairBoard)
+                        });
+                    }if(list.name === 'photography'){
+                        serviceL.addEventListener('click', () => {   
+                        const repairBoard =document.createElement('div');
+                        repairBoard.className='repair-board';
+                        
+
+
+
+                        serviceBox.appendChild(repairBoard)
+                        });
+                    }if(list.name === 'movie and music'){
+                        serviceL.addEventListener('click', () => {   
+                        const repairBoard =document.createElement('div');
+                        repairBoard.className='repair-board';
+                        
+
+
+
+                        serviceBox.appendChild(repairBoard)
+                        });
+                    }
+                    });
+                });
+
             const quit=document.createElement('button');
             quit.className='quit';
             quit.innerText='exit';
@@ -135,6 +251,7 @@ menu.addEventListener('click', () => {
             })
 
             services.appendChild(title)
+            services.appendChild(serviceBox)
             services.appendChild(quit)
             document.body.appendChild(services)
         }
@@ -148,10 +265,90 @@ menu.addEventListener('click', () => {
             title.className='pop-headings';
             title.innerText='my profile';
 
-            const aboutContent = document.createElement('fieldset');
-            aboutContent.className=''
-            const aboutLegnd = document.createElement('legend');
+            const profileImage = document.createElement('img');
+            profileImage.className = 'circular-images';
+            profileImage.src = 'ff.png';
+            profileImage.alt = 'profile';
 
+            const profileContent = document.createElement('fieldset');
+            profileContent.className = 'cart-content';
+            const legend = document.createElement('legend');
+            legend.className = 'legend';
+            legend.innerHTML = 'my email';
+            profileContent.innerText = 'example@gmail.com';
+            profileContent.contentEditable = true;
+            profileContent.appendChild(legend);
+
+            const profilePhone = document.createElement('fieldset');
+            profilePhone.className = 'cart-content';
+            const legend2 = document.createElement('legend');
+            legend2.className = 'legend';
+            legend2.innerHTML = 'phone number';
+            profilePhone.innerText = '+(code) 744759181';
+            profilePhone.contentEditable = true;
+            profilePhone.appendChild(legend2);
+
+            const profileBio = document.createElement('fieldset');
+            profileBio.className = 'cart-content';
+            const legend3 = document.createElement('legend');
+            legend3.className = 'legend';
+            legend3.innerHTML = 'my bio';
+            profileBio.innerHTML = 'i am example <br>a full-stack web and app developer, crafting beautiful systems in various programming languages.<br><br>contact me; +256-765-003-100';
+            profileBio.contentEditable = true;
+            profileBio.appendChild(legend3);
+
+            const save = document.createElement('button');
+            save.className = 'save-changes';
+            save.innerText = 'save changes';
+            save.addEventListener('click', async () => {
+                const email = profileContent.innerText;
+                const phone = profilePhone.innerText;
+                const bio = profileBio.innerHTML;
+
+                try {
+                    const response = await fetch('', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            email,
+                            phone,
+                            bio
+                        })
+                    });
+                    if (response.ok) {
+                        save.innerText = 'Saved!';
+                        save.style.backgroundColor = 'green';
+                        setTimeout(() => {
+                            save.innerText = 'save changes';
+                            save.style.backgroundColor = '';
+                        }, 2000);
+                    } else {
+                        save.innerText = 'Error!';
+                        save.style.backgroundColor = 'red';
+                        setTimeout(() => {
+                            save.innerText = 'save changes';
+                            save.style.backgroundColor = '';
+                        }, 2000);
+                    }
+                } catch (error) {
+                    save.innerText = 'Failed!';
+                    save.style.backgroundColor = 'red';
+                    setTimeout(() => {
+                        save.innerText = 'save changes';
+                        save.style.backgroundColor = '';
+                    }, 2000);
+                }
+            });
+
+
+            profile.appendChild(title)
+            profile.appendChild(profileImage);
+            profile.appendChild(profileContent);
+            profile.appendChild(profilePhone);
+            profile.appendChild(profileBio);
+            profile.appendChild(save);
 
             const quit=document.createElement('button');
             quit.className='quit';
@@ -160,7 +357,7 @@ menu.addEventListener('click', () => {
                 profile.remove()
             })
 
-            profile.appendChild(title)
+            
             profile.appendChild(quit)
             document.body.appendChild(profile)
         }
@@ -190,6 +387,16 @@ menu.addEventListener('click', () => {
             sideMenu.remove()
             const legit=document.createElement('div');
             legit.className='about';
+
+            const dashboard = document.createElement('div');
+            dashboard.className='dashboard';
+            const dashboardTitle = document.createElement('p');
+            dashboardTitle.className='pop-headings2';
+            dashboardTitle.innerText='legit sellers dashboard';
+            dashboard.appendChild(dashboardTitle);
+            dashboard.addEventListener('click', () => {
+                window.location.href='dash.html';
+            });
             
             const title=document.createElement('p');
             title.className='pop-headings';
@@ -203,6 +410,7 @@ menu.addEventListener('click', () => {
             })
 
             legit.appendChild(title)
+            legit.appendChild(dashboard)
             legit.appendChild(quit)
             document.body.appendChild(legit)
         }
@@ -438,7 +646,7 @@ app.appendChild(note)
 const itemsList = [
 	{ name: 'robin hoods', price: 'Ugx1000', video:'', img:'act4.jpg' },
 	{ name: 'monster run', price: 'Ugx1800', video:'', img:'act3.jpg' },
-	{ name: 'die alone', price: 'Ugx1100', video:'https://u.pcloud.link/publink/show?code=XZR7bW5Zf5xmaQk84E8gybfdgB4SjLyJRVl7', img:'act2.jpg' },
+	{ name: 'die alone', price: 'Ugx1100', video:'The gardener ICE P.mp4', img:'act2.jpg' },
 	{ name: 'dark forest', price: 'Ugx900', video:'',img:'act1.jpg' },
 	{ name: 'New Balance 574', price: 'Ugx1000', video:'', img:'shoe.jpg' },
 	{ name: 'Converse Chuck Taylor', price: 'Ugx650', video:'', img:'shoe.jpg' },
@@ -589,6 +797,64 @@ itemsList.forEach(item => {
     deal2.appendChild(image)
     deal2.appendChild(name)
     
+    deal2.addEventListener('click', () => {
+        // Create overlay
+        const overlay = document.createElement('div');
+        overlay.className = 'overlay';
+        overlay.style.zIndex = '9999';
+
+        // Modal container
+        const modal = document.createElement('div');
+        modal.className = 'category-modal';
+
+        // Modal header
+        const header = document.createElement('div');
+        header.className = 'modal-header';
+        header.style.display = 'flex';
+        header.style.justifyContent = 'space-between';
+        header.style.alignItems = 'center';
+
+        const title = document.createElement('span');
+        title.className = 'pop-headings2';
+        title.innerText = item2.name || 'Category';
+
+        const closeBtn = document.createElement('span');
+        closeBtn.className = 'material-icons';
+        closeBtn.innerText = 'close';
+        closeBtn.style.cursor = 'pointer';
+        closeBtn.addEventListener('click', () => {
+            overlay.remove();
+        });
+
+        header.appendChild(title);
+        header.appendChild(closeBtn);
+        modal.appendChild(header);
+
+        // Modal content area
+        const content = document.createElement('div');
+        content.className = 'modal-content';
+        content.innerText = 'Loading...';
+        modal.appendChild(content);
+
+        fetch('dash.html')
+            .then(res => res.text())
+            .then(html => {
+                // Try to extract items from dash.html (very basic, expects JSON or JS array in a <script>)
+                // For demo, just show a message or you can parse as needed
+                // You may want to use an API endpoint in production
+                content.innerText = '';
+                // Example: show a placeholder item
+                const itemDiv = document.createElement('div');
+                itemDiv.innerText = 'Fetched items from dash.html would appear here.';
+                content.appendChild(itemDiv);
+            })
+            .catch(() => {
+                content.innerText = 'Failed to load items.';
+            });
+
+        overlay.appendChild(modal);
+        document.body.appendChild(overlay);
+    });
     });
 
     newItemsModal.appendChild(secItemBox)
@@ -825,15 +1091,108 @@ cartBtn.addEventListener('click', () => {
     cartContent.className='cart-content';
     const legend =document.createElement('legend')
     legend.className='legend';
-    legend.innerHTML=`cart at ${Date.now()}`;
+    const now = new Date();
+    const dateStr = now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
+    legend.innerHTML = `cart at ${dateStr}`;
     cartContent.appendChild(legend)
 
     //cart logic
-    
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // Render cart items
+    if (cart.length === 0) {
+        cartContent.innerHTML += '<div style="padding:1em;color:gray;">Cart is empty.</div>';
+    } else {
+        let total = 0;
+        cart.forEach((item, idx) => {
+            const cartItem = document.createElement('div');
+            cartItem.className = 'cart-item';
+
+            const img = document.createElement('img');
+            img.src = item.img;
+            img.className = 'image-item';
+            img.style.width = '40px';
+            img.style.height = '40px';
+            img.style.objectFit = 'cover';
+            img.style.marginRight = '8px';
+
+            const name = document.createElement('span');
+            name.innerText = item.name;
+            name.style.marginRight = '8px';
+
+            const price = document.createElement('span');
+            price.innerText = item.price;
+            price.style.marginRight = '8px';
+
+
+            const delBtn = document.createElement('button');
+            delBtn.innerText = 'delete';
+            delBtn.className = 'delete-btn';
+            delBtn.style.marginLeft = '8px';
+            delBtn.addEventListener('click', () => {
+                cart.splice(idx, 1);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                cartBoard.remove();
+                cartBtn.click();
+            });
+
+            cartItem.appendChild(img);
+            cartItem.appendChild(name);
+            cartItem.appendChild(price);
+            cartItem.appendChild(delBtn);
+
+            cartContent.appendChild(cartItem);
+        });
+
+        // Total amount
+        const totalDiv = document.createElement('div');
+        totalDiv.className = 'cart-total';
+        totalDiv.style.marginTop = '1em';
+        totalDiv.style.fontWeight = 'bold';
+        totalDiv.innerText = 'Total: UGX ' + total;
+        cartContent.appendChild(totalDiv);
+    }
+
+    // Add "buy now" button
+    const buyNowBtn = document.createElement('button');
+    buyNowBtn.className = 'buy-now-btn';
+    buyNowBtn.innerText = 'buy now';
+    buyNowBtn.addEventListener('click', () => {
+        if (cart.length === 0) {
+            cartBoard.style.backgroundColor = 'red';
+            setTimeout(() => {
+                cartBoard.style.backgroundColor = '';
+            }, 1000);
+        } else {
+                       
+        }
+    });  
+    cartContent.appendChild(buyNowBtn);
+
+
+    // Add to cart logic for all "add to cart" buttons
+    document.querySelectorAll('.cart-btn').forEach(btn => {
+        btn.onclick = function () {
+            // Find the item info from the DOM
+            const itemDiv = btn.closest('.item');
+            if (!itemDiv) return;
+            const name = itemDiv.querySelector('.item-name')?.innerText || itemDiv.querySelector('.name')?.innerText || '';
+            const price = itemDiv.querySelector('.item-price')?.innerText || '';
+            const img = itemDiv.querySelector('img')?.src || '';
+            // Prevent duplicates
+            if (!cart.some(i => i.name === name && i.price === price)) {
+                cart.push({ name, price, img });
+                localStorage.setItem('cart', JSON.stringify(cart));
+                btn.innerText = 'added!';
+                setTimeout(() => { btn.innerText = '+ cart'; }, 1000);
+            }
+        };
+    });
 
 
 
     cartBoard.appendChild(cartContent)
+
 
     document.body.appendChild(cartBoard)
 });
