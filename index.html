@@ -240,7 +240,67 @@
             console.log('Running on secure HTTPS protocol.');
         }
 
+        if (window.location.protocol === 'https:') {
+            console.log('Secure connection established.');
+        } else {
+            console.warn('Insecure connection. Some features may not work properly.');
+        }
 
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(async () => {
+                // Check if app is installed (standalone mode)
+                const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+                if (!isStandalone) {
+                    // Request notification permission if not already granted
+                    if ('Notification' in window && navigator.serviceWorker) {
+                        let permission = Notification.permission;
+                        if (permission !== 'granted') {
+                            try {
+                                permission = await Notification.requestPermission();
+                            } catch (e) {
+                                console.warn('Notification permission request failed:', e);
+                            }
+                        }
+                        if (permission === 'granted') {
+                            navigator.serviceWorker.ready.then(reg => {
+                                reg.showNotification('Install Plaxedas', {
+                                    body: 'Install Plaxedas for a better experience. Tap to install!',
+                                    icon: '/ff.png',
+                                    requireInteraction: true, // Keeps the notification until user interacts
+                                    data: { url: window.location.href },
+                                    actions: [
+                                        { action: 'install', title: 'Install Now' }
+                                    ]
+                                });
+                            });
+                        }
+                    }
+                }
+            }, 10000);
+        });
+
+        // Optional: Handle notification click to prompt install
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.ready.then(reg => {
+                if (reg.active) {
+                    reg.active.addEventListener('notificationclick', function(event) {
+                        if (event.action === 'install' || event.notification) {
+                            event.notification.close();
+                            if (typeof deferredPrompt !== 'undefined' && deferredPrompt) {
+                                deferredPrompt.prompt();
+                                deferredPrompt.userChoice.then(() => {
+                                    deferredPrompt = null;
+                                });
+                            } else {
+                                window.open(window.location.href, '_blank');
+                            }
+                        }
+                    });
+                }
+            });
+        }
+
+        
 
     </script>
     <title>plaxedas</title>
