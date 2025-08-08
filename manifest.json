@@ -1,6 +1,6 @@
 {
-    "short_name" : "plaxa",
-    "name" :"orion",
+    "short_name" : "Plaxedas",
+    "name" :"Plaxedas",
     "description":"e-commerce",
     "orientation":"portrait",
     "computed App Id":"/",
@@ -17,7 +17,8 @@
         }
     ],
     "start_url":"/index.html",
-    "background_color":"blue",
+    "background_color":"black",
     "display":"standalone",
-    "theme_color":"#3367D6"
+    "theme_color":"black"
+
 }
