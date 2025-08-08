@@ -146,6 +146,7 @@
     color:grey;
     background-color: rgba(128, 128, 128, 0.103);
     border:0;
+
 }
 .legend{
     text-align: left;
@@ -157,6 +158,49 @@
     border-radius:100%;
     border:1px solid grey;
 }
+.about{
+    overflow-y: scroll;
+}
 .about-content{
     text-align: left;
+}
+.card{
+    list-style: none;
+    background-color: rgba(128, 128, 128, 0.103);
+    margin: 5px;
+    padding:30px;
+    border-radius:5px;
+    cursor: pointer;
+}
+.card:hover{
+    background-image: linear-gradient(45deg,purple,blue,purple);    
+}
+.service-box{
+    justify-content: center;
+    padding: 20px;
+}
+.confirm2{
+    position: fixed;
+    top:0;
+    right:5px;
+    left: 5px;
+    background-color: rgb(3, 3, 94);
+    padding:30px;
+    border: 1px solid transparent;
+    border-radius:0 0 10px 10px;
+    box-shadow: 0 5px 50px black;
+}
+.inputs2{
+    padding:10px;
+    background-color:rgb(12,3,36);
+    text-align: left;
+    margin:5px;
+}
+.repair-board{
+    position: fixed;
+    top:0;
+    background-color: rgb(12,3,36);
+    bottom:0;
+    right: 0;
+    left: 0;
 }
